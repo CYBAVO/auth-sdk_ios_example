@@ -27,7 +27,7 @@ class SecurityCheckViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        var states: [State] = [.PASS, .PASS, .PASS, .PASS]
+        var states: [State] = [.PASS, .PASS, .PASS]
         var secure: Bool = true
         if(DeviceSecurity.isJailBroken()){
             secure = false
@@ -38,15 +38,11 @@ class SecurityCheckViewController: UIViewController {
             secure = false
             states[1] = .FATAL
         }
-        // non fatal, don't count as inSecure
-        if(DeviceSecurity.isMockLocationEnabled()){
-            states[2] = .WARNING
-        }
         
         if(DeviceSecurity.isDebuggingEnabled()){
-            states[3] = .WARNING
+            states[2] = .WARNING
         }
-        runCheckAnimate(texts: ["Jail broken not detected","Emulator not detected","Mock location not enabled","Debugger disabled"]
+        runCheckAnimate(texts: ["Jail broken not detected","Emulator not detected","Debugger disabled"]
             , states: states, secure: secure)
     }
     func showMain(){
