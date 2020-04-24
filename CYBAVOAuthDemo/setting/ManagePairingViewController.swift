@@ -12,8 +12,6 @@ class ManagePairingViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var emptyMsg: UILabel!
-    
-    
     var pairings = [Pairing]()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,15 +54,24 @@ extension ManagePairingViewController : UITableViewDataSource {
 
         return [delete]
     }
-
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "idPairing", for: indexPath) as! PairingItemCell
         
         if let pairing = pairings[safe: indexPath.row] {
             cell.title.text = pairing.deviceId
+            let userEmail = pairing.userEmail == "" ? "-" : ("<\(pairing.userEmail)>")
+            let userAccount = pairing.userAccount == "" ? "-" : ("(\(pairing.userAccount))")
+            cell.user.text = "\(pairing.userName) \(userEmail)\(userAccount)"
             cell.desc.text = "Paired at \(UIUtil.getDateFormateText(dateFormat: "yyyy-M-d", from: Date(timeIntervalSince1970: Double(pairing.pairedAt))))"
-            
+            cell.icon.load(urlStr: pairing.iconUrl, defaultImageName: "ic_pairing_service")
+            if(pairing.isValid){
+                cell.serviceName.text = pairing.serviceName
+                cell.contentView.alpha = 1
+            }else{
+                cell.serviceName.text = "(Disconnected) \(pairing.serviceName)"
+                cell.contentView.alpha = 0.3
+            }
         }
     
         return cell

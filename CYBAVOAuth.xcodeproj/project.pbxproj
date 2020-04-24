@@ -12,6 +12,7 @@
 		A69BD73D2387A8CE0065CBA0 /* PinCodeActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69BD73B2387999A0065CBA0 /* PinCodeActionViewController.swift */; };
 		A69BD73F2387B4060065CBA0 /* UIUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69BD73E2387B4060065CBA0 /* UIUtil.swift */; };
 		A69BD7422387C1960065CBA0 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69BD7412387C1960065CBA0 /* UITextField.swift */; };
+		A6A6F45923CED5D200A17198 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A6F45823CED5D200A17198 /* UIImageView.swift */; };
 		A6A83C58237D00D3005042EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A83C57237D00D3005042EE /* AppDelegate.swift */; };
 		A6A83C5A237D00D3005042EE /* ActionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A83C59237D00D3005042EE /* ActionsController.swift */; };
 		A6A83C5C237D00D3005042EE /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A83C5B237D00D3005042EE /* SettingsViewController.swift */; };
@@ -46,6 +47,7 @@
 		A69BD73B2387999A0065CBA0 /* PinCodeActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeActionViewController.swift; sourceTree = "<group>"; };
 		A69BD73E2387B4060065CBA0 /* UIUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIUtil.swift; sourceTree = "<group>"; };
 		A69BD7412387C1960065CBA0 /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
+		A6A6F45823CED5D200A17198 /* UIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		A6A83C55237D00D3005042EE /* Auth.Z.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Auth.Z.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6A83C57237D00D3005042EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A6A83C59237D00D3005042EE /* ActionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsController.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				A69BD7412387C1960065CBA0 /* UITextField.swift */,
+				A6A6F45823CED5D200A17198 /* UIImageView.swift */,
 			);
 			path = ext;
 			sourceTree = "<group>";
@@ -353,6 +356,7 @@
 				A6FCE3FD238B989F000BD28C /* OtpActionViewController.swift in Sources */,
 				A6A83C6A237D0B6E005042EE /* QRCodeScanController.swift in Sources */,
 				A6EFC1DB23862B36007C1ED5 /* ActionItemCell.swift in Sources */,
+				A6A6F45923CED5D200A17198 /* UIImageView.swift in Sources */,
 				A69BD73F2387B4060065CBA0 /* UIUtil.swift in Sources */,
 				A6FCE400238BC30D000BD28C /* ManagePairingViewController.swift in Sources */,
 				A6A83C6C237D116E005042EE /* NewPairingViewController.swift in Sources */,

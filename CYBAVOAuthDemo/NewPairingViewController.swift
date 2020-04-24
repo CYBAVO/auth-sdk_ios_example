@@ -18,6 +18,7 @@ class NewPairingViewController: UIViewController {
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var token: UITextField!
     @IBOutlet weak var submitBtn: UIButton!
+    @IBOutlet weak var serviceName: UILabel!
     @IBAction func onSubmitClick(_ sender: Any) {
         guard let code = token.text else{
             return
@@ -63,29 +64,46 @@ class NewPairingViewController: UIViewController {
             vc.delegate = self
         }
     }
+    func chageToFinish(serviceName: String, iconUrl: String){
+        self.figure.load(urlStr: iconUrl, defaultImageName: "fig_security", tintColor: UIUtil.colorPrimary)
+        desc.text = "Congratulations! This device was paired successfully!"
+        self.serviceName.text = serviceName
+        button.setTitle("DONE", for: .normal)
+    }
     func chageToFinish(){
         UIUtil.setTintImage(named: "fig_security", imageView: self.figure, tintColor: UIUtil.colorPrimary)
         desc.text = "Congratulations! This device was paired successfully!"
         button.setTitle("DONE", for: .normal)
     }
-}
-extension NewPairingViewController : QRCodeContentDelegate {
     func onScan(code: String) {
         print("code: \(code), PushDeviceToken:\(PushDeviceToken)")
         toastView.showLoadingView()
         ServiceHolder.get().pair(token: code, pushToken: PushDeviceToken){ result in
-            switch result {
-            case .success(_):
-                self.chageToFinish()
-                print("pair onSuccess")
-                break
-            case .failure(let error):
-                ToastView.instance.showToast(content: "\(error.message)(\(error.code))", duration: 2.0)
-                print("pair onFailed")
-                break
-            }
-            self.toastView.clear()
+            self.onPair(result: result)
         }
-        //        addressTextField.text = code
+    }
+}
+extension NewPairingViewController : QRCodeContentDelegate {
+    func onPair(result: Result<PairResult>) {
+        switch result {
+        case .success(let r):
+            print("pair onSuccess")
+            let pairings = ServiceHolder.get().getPairings()
+            for pairing in pairings{
+                if(pairing.deviceId == r.deviceId){
+                    self.chageToFinish(serviceName: pairing.serviceName, iconUrl: pairing.iconUrl)
+                    self.toastView.clear()
+                    break
+                }
+            }
+            self.chageToFinish()
+            break
+        case .failure(let error):
+            self.toastView.clear()
+            ToastView.instance.showToast(content: "\(error.message)(\(error.code))", duration: 2.0)
+            print("pair onFailed")
+            break
+        }
+        self.toastView.clear()
     }
 }

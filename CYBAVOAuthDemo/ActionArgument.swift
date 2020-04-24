@@ -10,7 +10,7 @@ import Foundation
 import CYBAVOAuth
 public class ActionArgument {
     public static func fromAction(action: TwoFactorAuthenticationAction) -> ActionArgument{
-        return ActionArgument(type: action.type, token: action.token, deviceId: action.deviceId, messageType: action.messageType, messageTitle: action.messageTitle, messageBody: action.messageBody, messageData: action.messageData, createTime: action.createTime, rejectable: action.rejectable, inputPinCode: action.inputPinCode, state: action.state, userAction: action.userAction, updatedTime: action.updatedTime)
+        return ActionArgument(type: action.type, token: action.token, deviceId: action.deviceId, messageType: action.messageType, messageTitle: action.messageTitle, messageBody: action.messageBody, messageData: action.messageData, createTime: action.createTime, rejectable: action.rejectable, inputPinCode: action.inputPinCode, state: action.state, userAction: action.userAction, updatedTime: action.updatedTime, clientPlatform: action.clientInfo.platform, clientIp: action.clientInfo.ip)
     }
     
     public var type: Int = 0
@@ -26,9 +26,11 @@ public class ActionArgument {
     public var state: Int = 0
     public var userAction: Int = 0
     public var updatedTime: Int64 = 0
+    public var clientPlatform: Int = 0;
+    public var clientIp: String = ""
     
     init(type: Int, token: String, deviceId: String, messageType: Int,messageTitle: String, messageBody: String, messageData: String = "", createTime: Int64,
-         rejectable: Bool, inputPinCode: Bool, state: Int, userAction: Int, updatedTime: Int64) {
+         rejectable: Bool, inputPinCode: Bool, state: Int, userAction: Int, updatedTime: Int64, clientPlatform: Int, clientIp: String) {
         self.type = type
         self.token = token
         self.deviceId = deviceId
@@ -42,6 +44,8 @@ public class ActionArgument {
         self.state = state
         self.userAction = userAction
         self.updatedTime = updatedTime
+        self.clientPlatform = clientPlatform
+        self.clientIp = clientIp
     }
     
     public func getTitle() -> String{

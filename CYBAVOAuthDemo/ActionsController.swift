@@ -89,6 +89,7 @@ class ActionsController: UIViewController{
             emptyMsg.isHidden = false
             emptyMsg.text = "It seems that you have no pairings."
             UIUtil.setTintImage(named: "fig_new_pairing", imageView: emptyFig, tintColor: UIUtil.colorPrimary)
+             
             pairBtn.isHidden = false
             actionTableView.isHidden = true
         }else if(noAction){

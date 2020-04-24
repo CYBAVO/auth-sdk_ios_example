@@ -10,18 +10,18 @@ import CYBAVOAuth
 public class ServiceHolder {
     public static var shared: Authenticator? = nil
     public static func get() -> Authenticator{
-        guard let endPoint = UserDefaults.standard.string(forKey: "endpoints"),let apicode = UserDefaults.standard.string(forKey: "apicode") else{
+        guard let endpoint = UserDefaults.standard.string(forKey: "endpoints"),let apicode = UserDefaults.standard.string(forKey: "apicode") else{
              print("missing settings")
             return shared!
         }
-        print("apiCode:\(apicode), endpoint:\(endPoint)")
+        print("apiCode:\(apicode), endpoint:\(endpoint)")
         if shared == nil {
             #if DEBUG
             let apnsSandbox = true
             #else
             let apnsSandbox = false
             #endif
-            shared = Authenticator.create(endPoint:endPoint,apiCode: apicode, apnsSandbox: apnsSandbox)
+            shared = Authenticator.create(endpoint:endpoint,apiCode: apicode, apnsSandbox: apnsSandbox)
         }
         return shared!
     }
