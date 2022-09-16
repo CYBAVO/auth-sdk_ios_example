@@ -21,7 +21,7 @@ class QRCodeScanController: UIViewController {
         super.viewDidLoad()
         scanPairView = ScanPairView(frame: CGRect(x: 0, y: 0 , width: view.frame.width, height: view.frame.height))
         scanPairView.setPairListener(listener: self)
-        scanPairView.setMode(mode: PairMode.TOKEN)
+        scanPairView.setMode(mode: PairMode.COMPOSITE)
         scanPairView.setPushDeviceToken(token: PushDeviceToken)
         view.addSubview(scanPairView)
 //        view.backgroundColor = UIColor.black

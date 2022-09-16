@@ -10,6 +10,8 @@ import UIKit
 import SwiftEventBus
 var PushDeviceToken = ""
 import UserNotifications
+import Firebase
+import FirebaseMessaging
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
@@ -21,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         var navigationBarAppearace = UINavigationBar.appearance()
         navigationBarAppearace.tintColor = UIColor.white
         navigationBarAppearace.barTintColor = UIUtil.colorPrimary
+        FirebaseApp.configure()
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) {[weak self] granted, error in
                 
                 print("Permission granted: \(granted)")
@@ -30,6 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 }
         }
         UNUserNotificationCenter.current().delegate = self
+        Messaging.messaging().delegate = self
         return true
     }
     func registerDefaultsFromSettingsBundle()
@@ -74,8 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
         let token = tokenParts.joined()
         
-        PushDeviceToken = token
-        print("Device Token: \(token)")
+        print("Device Token: \(PushDeviceToken)")
         if(ServiceHolder.get().getPairings().count > 0){
             ServiceHolder.get().setPushToken(pushToken: PushDeviceToken){result in
                 switch result {
@@ -96,6 +99,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void
         ) {
+        print("recive: \(userInfo)")
         guard let data = userInfo["data"] as? [String: AnyObject] else {
             completionHandler(.failed)
             return
@@ -132,3 +136,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
 }
 
+extension AppDelegate: MessagingDelegate {
+ 
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        let token = messaging.apnsToken?.reduce("") {
+            return $0 + String(format: "%02x", $1)
+        }
+
+        print("Device APNs Push Token: \(String(describing: token))")
+        print("Device FCM Token: \(String(describing: fcmToken))")
+        if let fcmToken = fcmToken {
+            PushDeviceToken = fcmToken
+        }
+    }
+    
+}
