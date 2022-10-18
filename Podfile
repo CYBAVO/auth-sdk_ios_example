@@ -2,7 +2,7 @@
 platform :ios, '11.0'
 
 source 'https://github.com/CocoaPods/Specs.git'
-source 'https://bitbucket.org/cybavo/specs_501.git'
+source 'https://bitbucket.org/cybavo/specs_512.git'
 
 target 'CYBAVOAuthDemo' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
@@ -31,4 +31,10 @@ post_install do |installer|
         config.build_settings['CODE_SIGNING_REQUIRED'] = "NO"
         config.build_settings['CODE_SIGNING_ALLOWED'] = "NO"
     end
+    # Required from CYBAVOAuth 1.2.239
+    # installer.pods_project.targets.each do |target|
+    #   target.build_configurations.each do |config|
+    #     config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
+    #   end
+    # end
 end
